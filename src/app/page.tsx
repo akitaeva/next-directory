@@ -1,4 +1,4 @@
-import { db } from '@/db'
+import { db } from '@/db';
 
 export default async function Home() {
   const snippets = await db.snippet.findMany();
@@ -19,4 +19,5 @@ export default async function Home() {
       </div>
     </div>
   );
-}
+};
+ 
