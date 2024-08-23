@@ -22,6 +22,7 @@ export default function SnippetCreatePage() {
     //Redirect to the root route
     redirect('/');
   }
+
   return <form action={createSnippet}>
     <h3 className="font-bold m-3">Create a Snippet</h3>
     <div className="flex flex-col gap-4">
