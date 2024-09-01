@@ -14,24 +14,24 @@ export default async function ShowSnippetPage(props: SnippetShowPageProps) {
 
   const { id } = await props.params;
  
-  const snippet = await db.snippet.findFirst({
-    where: { id: parseInt(id) },
+  const post = await db.post.findFirst({
+    where: { id: id },
   });
 
-  if (!snippet) {
+  if (!post) {
     return notFound();
   }
 
-  const deleteSnippetAction = deleteSnippet.bind(null, snippet.id);
+  const deleteSnippetAction = deleteSnippet.bind(null, Number(post.id));
 
   return <div>
       <div className="flex m-4 justify-between items-center">
         <h1 className="text-xl font-bold">
-         {snippet.title}
+         {post.title}
         </h1>
         <div className="flex gap-4">
           <Link
-            href={`/snippets/${snippet.id}/edit`}
+            href={`/snippets/${post.id}/edit`}
             className="p-2 border rounded"
           >Edit
           </Link>
@@ -41,18 +41,18 @@ export default async function ShowSnippetPage(props: SnippetShowPageProps) {
         </div>
       </div>
       <pre className="p-3 border rounded bg-gray-200 border-gray-300">
-        <code>{snippet.code}</code>
+        <code>{post.content}</code>
       </pre>
     </div>
 };
 
 
 export async function generateStaticParams() {
-  const snippets = await db.snippet.findMany();
+  const posts = await db.post.findMany();
 
-  return snippets.map((snippet) => {
+  return posts.map((post) => {
     return {
-      id: snippet.id.toString,
+      id: post.id.toString,
     }
   });
 };

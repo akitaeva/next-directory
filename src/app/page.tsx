@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '@nextui-org/react';
 import { db } from '@/db';
 
 export default async function Home() {
@@ -31,6 +32,7 @@ export default async function Home() {
       <div className="flex flex-col gap-2">
         {renderedSnippets}
       </div>
+      <Button>Click me!!!</Button>
     </div>
   );
 };
