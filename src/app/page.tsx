@@ -1,18 +1,19 @@
 import Link from 'next/link';
 import { Button } from '@nextui-org/react';
 import { db } from '@/db';
+import * as actions from '@/actions';
 
 export default async function Home() {
-  const snippets = await db.snippet.findMany();
+  const posts = await db.post.findMany();
 
-  const renderedSnippets = snippets.map((snippet) => {
+  const renderedPosts = posts.map((post) => {
     return (
       <Link 
-        key={snippet.id} 
-        href={`/snippets/${snippet.id}`}
+        key={post.id} 
+        href={`/posts/${post.id}`}
         className='flex justify-between items-center p-2 border rounded'
       >
-        <div>{snippet.title}</div>
+        <div>{post.title}</div>
         <div>View</div>
       </Link>
     )
@@ -23,16 +24,21 @@ export default async function Home() {
       <div className="flex m-2 justify-between items-center">
         <h1 className="text-xl font-bold">Code Snippets</h1>
         <Link 
-          href="/snippets/new"
+          href="/posts/new"
           className="border p-2 border rounded"
         >
           New
         </Link>
       </div>
       <div className="flex flex-col gap-2">
-        {renderedSnippets}
+        {renderedPosts}
       </div>
-      <Button>Click me!!!</Button>
+      <form action={actions.signIn}>
+      <Button type="submit">Sign In</Button>
+      </form>
+      <form action={actions.signOut}>
+      <Button type="submit">Sign Out</Button>
+      </form>
     </div>
   );
 };
