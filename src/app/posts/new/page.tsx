@@ -1,10 +1,10 @@
 'use client';
 
 import { useActionState, startTransition } from "react";
-import { createSnippet } from '@/actions';
+import { createPost } from '@/actions';
 
 export default function SnippetCreatePage() {
-  const [formState, action] = useActionState(createSnippet, { message: ''});
+  const [formState, action] = useActionState(createPost, { message: ''});
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -13,10 +13,10 @@ export async function signOut() {
   return auth.signOut();
 };
 
-// export async function createPost( 
-//   formState: {content: string},
-//   formData: FormData
-// ) {
+export async function createPost( 
+  // formState: {content: string},
+  // formData: FormData
+) {
 
 //   try { 
 //     const title = formData.get('title') as string;
@@ -54,9 +54,9 @@ export async function signOut() {
 //     }
 //   }
 
-//   revalidatePath('/');
-//   redirect('/');
-// }
+  revalidatePath('/');
+  redirect('/');
+}
 
 
 export async function editPost(id: string, title: string, content: string) {

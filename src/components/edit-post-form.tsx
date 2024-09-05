@@ -1,35 +1,35 @@
 'use client';
 
-import type { Snippet } from '@prisma/client';
+import type { Post } from '@prisma/client';
 import Editor from '@monaco-editor/react';
 import { useState } from 'react';
-import { editSnippet  } from '@/actions';
+import { editPost  } from '@/actions';
 
-interface SnippetEditFormProps {
-  snippet: Snippet;
+interface PostEditFormProps {
+  post: Post;
 };
 
-export default function SnippetEditForm ({ snippet } : SnippetEditFormProps ) {
-  const [code, setCode] = useState(snippet.code);
+export default function PostEditForm ({ post } : PostEditFormProps ) {
+  const [content, setContent] = useState(post.content);
   
   const handleEditorChange = (value: string = "") => {
-    setCode(value)
+    setContent(value)
   };
 
-  const editSnippetAction = editSnippet.bind(null, snippet.id, code)
+  const editPostAction = editPost.bind(null, post.id, content)
 
   return (
     <div>
-      <h1>{snippet.title}</h1>
+      <h1>{post.title}</h1>
       <Editor
         height="40vh"
         theme="vs-dark"
         language="javascript"
-        defaultValue={code}
+        defaultValue={content}
         options={{ minimap : {enabled: false} }}
         onChange={handleEditorChange}
       />
-      <form action={editSnippetAction}>
+      <form action={editPostAction}>
        <button type="submit" className="p-2 border rounded">
         Save
        </button>
