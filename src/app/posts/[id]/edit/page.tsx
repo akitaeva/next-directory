@@ -3,7 +3,7 @@ import { db } from '@/db';
 import PostEditForm from '@/components/edit-post-form';
 
 
-interface SnippetEditPageProps {
+interface PostEditPageProps {
   params: Promise<{
     id: string;
     title: string;
@@ -11,22 +11,22 @@ interface SnippetEditPageProps {
   }>;
 }
 
-export default async function EditSnippetPage( props: SnippetEditPageProps) {
+export default async function EditSnippetPage( props: PostEditPageProps) {
   const { id } = await props.params;
  
-  const snippetId = parseInt(id);
-  const snippet = await db.post.findFirst({
-    where: { id: snippetId },
+  const postId = id;
+  const post = await db.post.findFirst({
+    where: { id: postId },
   });
 
-  if (!snippet) {
+  if (!post) {
     return notFound();
   }
 
   return (
     <div>
       <PostEditForm 
-        post={snippet}
+        post={post}
       />
     </div>
   );

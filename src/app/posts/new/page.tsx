@@ -3,22 +3,22 @@
 import { useActionState, startTransition } from "react";
 import { createPost } from '@/actions';
 
-export default function SnippetCreatePage() {
-  const [formState, action] = useActionState(createPost, { message: ''});
+export default function PostCreatePage() {
+  const [formState, action] = useActionState(createPost, { message: '' });
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     startTransition(() => {
       action(formData);
-    })
+    });
   }
 
   return <form action={action} onSubmit={handleSubmit}>
-    <h3 className="font-bold m-3">Create a Snippet</h3>
+    <h3 className="font-bold m-3">Create a Post</h3>
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
-        <label>
+        <label htmlFor="title">
          Title
         </label>
         <input
@@ -29,13 +29,13 @@ export default function SnippetCreatePage() {
       </div>
 
       <div className="flex gap-4">
-        <label className="w-12" htmlFor="code">
-         Code
+        <label className="w-12" htmlFor="content">
+         Post
         </label>
         <textarea
-          name="code"
+          name="content"
           className="border rounded p-2 w-full"
-          id="code"
+          id="content"
         />
       </div>
 

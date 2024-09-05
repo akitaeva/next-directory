@@ -14,50 +14,52 @@ export async function signOut() {
 };
 
 export async function createPost( 
-  // formState: {content: string},
-  // formData: FormData
+  formState: {message: string},
+  formData: FormData
 ) {
 
-//   try { 
-//     const title = formData.get('title') as string;
-//     const content = formData.get('content') as string;
-  
-//     if (typeof title !=='string' || title.length < 3 ) {
-//       return {
-//         message: 'Title must be at least 3 characters long',
-//       };
-//     };
+  try { 
+    const title = formData.get('title') as string;
+    const content = formData.get('content') as string;
+    const userId = formData.get('userId') as string;       // Assuming userId is provided
+    const topicId = formData.get('topicId') as string;     // Assuming topicId is provided
 
-//     if (typeof content !=='string' || content.length < 12 ) {
-//       return {
-//         message: 'Text must be longer',
-//       };
-//     };
-    
+    if (typeof title !=='string' || title.length < 3 ) {
+      return {
+        message: 'Title must be at least 3 characters long',
+      };
+    };
 
-//   await db.post.create({
-//       data: {
-//         title,
-//         content,
-//       },
-//     });
-//   } catch (err: unknown ) {
-//     if (err instanceof Error) {
-//       return {
-//         message: err.message,
-//       };
-//     }  
-//     else {
-//       return {
-//         message: 'Something went wrong...',
-//       }
-//     }
-//   }
+    if (typeof content !=='string' || content.length < 12 ) {
+      return {
+        message: 'Text must be longer',
+      };
+    };
+
+    await db.post.create({
+      data: {
+        title,
+        content,
+        user: { connect: { id: userId } },
+        topic: { connect: { id: topicId } },
+      },
+    });
+  } catch (err: unknown ) {
+    if (err instanceof Error) {
+      return {
+        message: err.message,
+      };
+    }  
+    else {
+      return {
+        message: 'Something went wrong...',
+      }
+    }
+  }
 
   revalidatePath('/');
   redirect('/');
-}
-
+};
 
 export async function editPost(id: string, title: string, content: string) {
   await db.post.update({
